@@ -5,129 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Торговый Центр</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        // Замените на вашу конфигурацию Firebase
+        const firebaseConfig = {
+            apiKey: "ВАШ_API_KEY",
+            authDomain: "ВАШ_PROJECT_ID.firebaseapp.com",
+            projectId: "ВАШ_PROJECT_ID",
+            storageBucket: "ВАШ_PROJECT_ID.appspot.com",
+            messagingSenderId: "ВАШ_SENDER_ID",
+            appId: "ВАШ_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+    </script>
 </head>
 <body>
-    <h1>Добро пожаловать в Торговый Центр!</h1>
-    <p>Ознакомьтесь с каталогом товаров Португалии (1920 год). Выберите товары, добавьте свои и подтвердите покупку. Цены рассчитываются автоматически.</p>
+    <header>
+        <h1>🇵🇹 Торговый Центр Португалии</h1>
+        <p>Международная торговля товарами (1920-е годы)</p>
+    </header>
 
-    <h2>🇵🇹 Каталог товаров Португалии</h2>
-    <div id="catalog">
-        <h3>1. Вино (портвейн, мадера)</h3>
-        <p>Цена: 14–22$ за бочку. Объём: до 12 000 бочек в год.</p>
-        
-        <h3>2. Рыбная продукция (треска, сардины, тунец)</h3>
-        <p>Цена: 1.2–3.5$ за ящик. Объём: до 50 000 ящиков.</p>
-        
-        <h3>3. Оливковое масло</h3>
-        <p>Цена: 4–7$ за канистру. Объём: 20 000–30 000 канистр.</p>
-        
-        <h3>4. Текстиль (шерсть, хлопок, лен)</h3>
-        <p>Цена: 0.8–1.4$ за рулон. Объём: 40 000 рулонов.</p>
-        
-        <h3>5. Сахар (в т.ч. колониальный)</h3>
-        <p>Цена: 3–6$ за мешок. Объём: 25 000 мешков.</p>
-        
-        <h3>6. Колониальные товары (кофе, какао, специи, каучук)</h3>
-        <p>Цена: 5–25$ в зависимости от вида. Объём: регулируется колониальной администрацией.</p>
-        
-        <h3>7. Пробка и изделия из пробки</h3>
-        <p>Цена: 1–2$ за кг. Объём: до 15 000 кг.</p>
-        
-        <h3>8. Сельхозпродукция (зерно, кукуруза, цитрусовые)</h3>
-        <p>Цена: 2–5$ за ящик/мешок. Объём: 30 000–40 000 единиц.</p>
-        
-        <h3>9. Кожа и кожаные изделия</h3>
-        <p>Цена: 6–12$ за партию. Объём: до 9 000 партий.</p>
-        
-        <h3>10. Уголь</h3>
-        <p>Цена: 5–8$ за тонну. Объём: 3 000–5 000 тонн.</p>
-    </div>
-
-    <form id="tradeForm">
-        <label for="buyerName">Имя второй стороны (страна/игрок):</label>
-        <input type="text" id="buyerName" required><br><br>
-
-        <label>Дата заключения соглашения:</label><br>
-        <select id="day">
-            <option value="">День</option>
-            <!-- Дни 1-31 -->
-            <script>
-                for (let i = 1; i <= 31; i++) {
-                    document.write(`<option value="${i}">${i}</option>`);
-                }
-            </script>
-        </select>
-        <select id="month">
-            <option value="">Месяц</option>
-            <!-- Месяцы 1-12 -->
-            <script>
-                for (let i = 1; i <= 12; i++) {
-                    document.write(`<option value="${i}">${i}</option>`);
-                }
-            </script>
-        </select>
-        <input type="text" id="year" value="1920" readonly> (год фиксирован)<br><br>
-
-        <h3>Выберите товары из каталога Португалии:</h3>
-        <div id="portugalItems">
-            <div class="item">
-                <label>Вино (портвейн, мадера) — 14$ за бочку</label>
-                <input type="number" class="quantity" data-price="14" data-name="Вино (портвейн, мадера)" min="0" value="0">
+    <section id="catalog">
+        <h2>Каталог товаров Португалии</h2>
+        <div class="catalog-grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=🍷" alt="Вино">
+                <h3>Вино (портвейн, мадера)</h3>
+                <p>Цена: 14–22$ за бочку. Объём: до 12 000 бочек в год.</p>
             </div>
-            <div class="item">
-                <label>Рыбная продукция — 1.2$ за ящик</label>
-                <input type="number" class="quantity" data-price="1.2" data-name="Рыбная продукция" min="0" value="0">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=🐟" alt="Рыба">
+                <h3>Рыбная продукция</h3>
+                <p>Цена: 1.2–3.5$ за ящик. Объём: до 50 000 ящиков.</p>
             </div>
-            <div class="item">
-                <label>Оливковое масло — 4$ за канистру</label>
-                <input type="number" class="quantity" data-price="4" data-name="Оливковое масло" min="0" value="0">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=🫒" alt="Масло">
+                <h3>Оливковое масло</h3>
+                <p>Цена: 4–7$ за канистру. Объём: 20 000–30 000 канистр.</p>
             </div>
-            <div class="item">
-                <label>Текстиль — 0.8$ за рулон</label>
-                <input type="number" class="quantity" data-price="0.8" data-name="Текстиль" min="0" value="0">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=🧵" alt="Текстиль">
+                <h3>Текстиль</h3>
+                <p>Цена: 0.8–1.4$ за рулон. Объём: 40 000 рулонов.</p>
             </div>
-            <div class="item">
-                <label>Сахар — 3$ за мешок</label>
-                <input type="number" class="quantity" data-price="3" data-name="Сахар" min="0" value="0">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=🍯" alt="Сахар">
+                <h3>Сахар</h3>
+                <p>Цена: 3–6$ за мешок. Объём: 25 000 мешков.</p>
             </div>
-            <div class="item">
-                <label>Колониальные товары — 5$ за единицу</label>
-                <input type="number" class="quantity" data-price="5" data-name="Колониальные товары" min="0" value="0">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=☕" alt="Колониальные товары">
+                <h3>Колониальные товары</h3>
+                <p>Цена: 5–25$ в зависимости от вида. Объём: регулируется.</p>
             </div>
-            <div class="item">
-                <label>Пробка — 1$ за кг</label>
-                <input type="number" class="quantity" data-price="1" data-name="Пробка" min="0" value="0">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=🌳" alt="Пробка">
+                <h3>Пробка</h3>
+                <p>Цена: 1–2$ за кг. Объём: до 15 000 кг.</p>
             </div>
-            <div class="item">
-                <label>Сельхозпродукция — 2$ за единицу</label>
-                <input type="number" class="quantity" data-price="2" data-name="Сельхозпродукция" min="0" value="0">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=🌽" alt="Сельхоз">
+                <h3>Сельхозпродукция</h3>
+                <p>Цена: 2–5$ за единицу. Объём: 30 000–40 000 единиц.</p>
             </div>
-            <div class="item">
-                <label>Кожа и изделия — 6$ за партию</label>
-                <input type="number" class="quantity" data-price="6" data-name="Кожа и изделия" min="0" value="0">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=👢" alt="Кожа">
+                <h3>Кожа и изделия</h3>
+                <p>Цена: 6–12$ за партию. Объём: до 9 000 партий.</p>
             </div>
-            <div class="item">
-                <label>Уголь — 5$ за тонну</label>
-                <input type="number" class="quantity" data-price="5" data-name="Уголь" min="0" value="0">
+            <div class="card">
+                <img src="https://via.placeholder.com/100?text=⛏️" alt="Уголь">
+                <h3>Уголь</h3>
+                <p>Цена: 5–8$ за тонну. Объём: 3 000–5 000 тонн.</p>
             </div>
         </div>
+    </section>
 
-        <h3>Товары, предоставляемые второй стороной (добавьте свои):</h3>
-        <div id="buyerItems">
-            <div class="item">
-                <input type="text" placeholder="Название товара" class="itemName">
-                <input type="number" placeholder="Цена за единицу ($)" class="itemPrice" min="0">
-                <input type="number" placeholder="Количество" class="quantity" min="0" value="0">
+    <section id="form-section">
+        <form id="tradeForm">
+            <h2>Создать торговое соглашение</h2>
+            <label for="buyerName">Имя второй стороны (страна/игрок):</label>
+            <input type="text" id="buyerName" required><br><br>
+
+            <label>Дата заключения соглашения:</label><br>
+            <select id="day">
+                <option value="">День</option>
+                <script>
+                    for (let i = 1; i <= 31; i++) {
+                        document.write(`<option value="${i}">${i}</option>`);
+                    }
+                </script>
+            </select>
+            <select id="month">
+                <option value="">Месяц</option>
+                <script>
+                    for (let i = 1; i <= 12; i++) {
+                        document.write(`<option value="${i}">${i}</option>`);
+                    }
+                </script>
+            </select>
+            <input type="number" id="year" min="1900" max="2000" value="1920"><br><br>
+
+            <h3>Выберите товары из каталога Португалии:</h3>
+            <div id="portugalItems">
+                <div class="item">
+                    <label>Вино (портвейн, мадера) — 14$ за бочку</label>
+                    <input type="number" class="quantity" data-price="14" data-name="Вино (портвейн, мадера)" min="0" value="0">
+                </div>
+                <div class="item">
+                    <label>Рыбная продукция — 1.2$ за ящик</label>
+                    <input type="number" class="quantity" data-price="1.2" data-name="Рыбная продукция" min="0" value="0">
+                </div>
+                <div class="item">
+                    <label>Оливковое масло — 4$ за канистру</label>
+                    <input type="number" class="quantity" data-price="4" data-name="Оливковое масло" min="0" value="0">
+                </div>
+                <div class="item">
+                    <label>Текстиль — 0.8$ за рулон</label>
+                    <input type="number" class="quantity" data-price="0.8" data-name="Текстиль" min="0" value="0">
+                </div>
+                <div class="item">
+                    <label>Сахар — 3$ за мешок</label>
+                    <input type="number" class="quantity" data-price="3" data-name="Сахар" min="0" value="0">
+                </div>
+                <div class="item">
+                    <label>Колониальные товары — 5$ за единицу</label>
+                    <input type="number" class="quantity" data-price="5" data-name="Колониальные товары" min="0" value="0">
+                </div>
+                <div class="item">
+                    <label>Пробка — 1$ за кг</label>
+                    <input type="number" class="quantity" data-price="1" data-name="Пробка" min="0" value="0">
+                </div>
+                <div class="item">
+                    <label>Сельхозпродукция — 2$ за единицу</label>
+                    <input type="number" class="quantity" data-price="2" data-name="Сельхозпродукция" min="0" value="0">
+                </div>
+                <div class="item">
+                    <label>Кожа и изделия — 6$ за партию</label>
+                    <input type="number" class="quantity" data-price="6" data-name="Кожа и изделия" min="0" value="0">
+                </div>
+                <div class="item">
+                    <label>Уголь — 5$ за тонну</label>
+                    <input type="number" class="quantity" data-price="5" data-name="Уголь" min="0" value="0">
+                </div>
             </div>
-            <button type="button" id="addItemBtn">Добавить ещё товар</button>
-        </div>
 
-        <h3>Итого: <span id="totalPrice">0</span> $</h3>
+            <h3>Товары, предоставляемые второй стороной (добавьте свои):</h3>
+            <div id="buyerItems">
+                <div class="item">
+                    <input type="text" placeholder="Название товара" class="itemName">
+                    <input type="number" placeholder="Цена за единицу ($)" class="itemPrice" min="0">
+                    <input type="number" placeholder="Количество" class="quantity" min="0" value="0">
+                </div>
+                <button type="button" id="addItemBtn">Добавить ещё товар</button>
+            </div>
 
-        <button type="button" id="confirmBtn">Подтвердить покупку</button>
-    </form>
+            <h3>Итого: <span id="totalPrice">0</span> $</h3>
 
-    <p><a href="orders.html" target="_blank">Просмотреть все заказы</a></p>
+            <button type="button" id="confirmBtn">Подтвердить покупку</button>
+        </form>
+    </section>
+
+    <footer>
+        <p><a href="orders.html" target="_blank">Просмотреть все заказы</a></p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
