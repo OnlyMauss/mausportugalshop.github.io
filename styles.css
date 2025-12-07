@@ -1,55 +1,87 @@
 body {
-    font-family: 'Times New Roman', serif; /* Винтажный шрифт */
-    max-width: 1000px;
+    font-family: 'Times New Roman', serif;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background: linear-gradient(135deg, #1a1a1a, #2c2c2c); /* Тёмный градиент */
-    color: #f0f0f0; /* Светлый текст */
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    color: #f0f0f0;
     line-height: 1.6;
 }
 
+header {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
 h1, h2, h3 {
-    color: #d4af37; /* Золотой акцент */
+    color: #d4af37;
     text-shadow: 1px 1px 2px #000;
 }
 
 #catalog {
-    background: rgba(0, 0, 0, 0.7); /* Полупрозрачный тёмный фон */
+    background: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
     margin-bottom: 20px;
-    border: 1px solid #d4af37;
 }
 
-#catalog h3 {
-    margin-top: 15px;
-    margin-bottom: 5px;
-    color: #f0f0f0;
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
-form {
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+#form-section {
     background: rgba(0, 0, 0, 0.8);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    border: 1px solid #d4af37;
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .item {
     margin-bottom: 15px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
-.quantity, .itemName, .itemPrice, select, input[type="text"] {
-    margin-left: 10px;
-    padding: 5px;
+.quantity, .itemName, .itemPrice, select, input[type="text"], input[type="number"] {
+    margin: 5px;
+    padding: 8px;
     background: #333;
     color: #f0f0f0;
     border: 1px solid #d4af37;
     border-radius: 5px;
-    width: 100px;
+    width: 150px;
 }
 
 #totalPrice {
@@ -68,6 +100,7 @@ button {
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     transition: all 0.3s ease;
+    margin: 10px;
 }
 
 button:hover {
@@ -82,4 +115,9 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
 }
