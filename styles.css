@@ -1,58 +1,85 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', serif; /* Винтажный шрифт */
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f4f4f4;
+    background: linear-gradient(135deg, #1a1a1a, #2c2c2c); /* Тёмный градиент */
+    color: #f0f0f0; /* Светлый текст */
+    line-height: 1.6;
 }
 
 h1, h2, h3 {
-    color: #333;
+    color: #d4af37; /* Золотой акцент */
+    text-shadow: 1px 1px 2px #000;
 }
 
 #catalog {
-    background: white;
+    background: rgba(0, 0, 0, 0.7); /* Полупрозрачный тёмный фон */
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
     margin-bottom: 20px;
+    border: 1px solid #d4af37;
 }
 
 #catalog h3 {
     margin-top: 15px;
     margin-bottom: 5px;
+    color: #f0f0f0;
 }
 
 form {
-    background: white;
+    background: rgba(0, 0, 0, 0.8);
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    border: 1px solid #d4af37;
 }
 
 .item {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
 }
 
-.quantity, .itemName, .itemPrice {
+.quantity, .itemName, .itemPrice, select, input[type="text"] {
     margin-left: 10px;
+    padding: 5px;
+    background: #333;
+    color: #f0f0f0;
+    border: 1px solid #d4af37;
+    border-radius: 5px;
     width: 100px;
 }
 
 #totalPrice {
     font-weight: bold;
-    color: green;
+    color: #d4af37;
+    font-size: 1.2em;
 }
 
 button {
-    background: #4CAF50;
-    color: white;
-    padding: 10px 20px;
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    color: #1a1a1a;
+    padding: 12px 25px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background: #45a049;
+    background: linear-gradient(135deg, #b8860b, #d4af37);
+    transform: translateY(-2px);
+}
+
+a {
+    color: #d4af37;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
