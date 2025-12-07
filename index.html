@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>РП Торговый Центр</title>
+    <title>Торговый Центр</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Добро пожаловать в РП Торговый Центр!</h1>
+    <h1>Добро пожаловать в Торговый Центр!</h1>
     <p>Ознакомьтесь с каталогом товаров Португалии (1920 год). Выберите товары, добавьте свои и подтвердите покупку. Цены рассчитываются автоматически.</p>
 
     <h2>🇵🇹 Каталог товаров Португалии</h2>
@@ -46,6 +46,27 @@
     <form id="tradeForm">
         <label for="buyerName">Имя второй стороны (страна/игрок):</label>
         <input type="text" id="buyerName" required><br><br>
+
+        <label>Дата заключения соглашения:</label><br>
+        <select id="day">
+            <option value="">День</option>
+            <!-- Дни 1-31 -->
+            <script>
+                for (let i = 1; i <= 31; i++) {
+                    document.write(`<option value="${i}">${i}</option>`);
+                }
+            </script>
+        </select>
+        <select id="month">
+            <option value="">Месяц</option>
+            <!-- Месяцы 1-12 -->
+            <script>
+                for (let i = 1; i <= 12; i++) {
+                    document.write(`<option value="${i}">${i}</option>`);
+                }
+            </script>
+        </select>
+        <input type="text" id="year" value="1920" readonly> (год фиксирован)<br><br>
 
         <h3>Выберите товары из каталога Португалии:</h3>
         <div id="portugalItems">
