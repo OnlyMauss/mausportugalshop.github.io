@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все Заказы</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Все Заказы (Торговые Соглашения)</h1>
+    <p>Здесь отображаются все сохранённые заказы и соглашения для удобства просмотра.</p>
+
+    <div id="agreementsList">
+        <!-- Заказы будут загружены сюда -->
+    </div>
+
+    <button id="clearBtn">Очистить все заказы</button>
+    <a href="index.html">Вернуться на главную</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const agreementsList = document.getElementById('agreementsList');
+            const clearBtn = document.getElementById('clearBtn');
+
+            // Загружаем заказы из localStorage
+            function loadAgreements() {
+                const agreements = JSON.parse(localStorage.getItem('tradeAgreements')) || [];
+                agreementsList.innerHTML = '';
+                if (agreements.length === 0) {
+                    agreementsList.innerHTML = '<p>Нет сохранённых заказов.</p>';
+                    return;
+                }
+                agreements.forEach((agreement, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'agreement';
+                    div.innerHTML = `
+                        <h3>Заказ ${index + 1} — ${agreement.buyerName} (${agreement.date})</h3>
+                        <h4>Товары Португалии:</h4>
+                        <pre>${agreement.portugalGoods || 'Нет'}</pre>
+                        <h4>Товары второй стороны:</h4>
+                        <pre>${agreement.buyerGoods || 'Нет'}</pre>
+                        <p><strong>Итого: ${agreement.totalPrice}$</strong></p>
+                        <hr>
+                    `;
+                    agreementsList.appendChild(div);
+                });
+            }
+
+            loadAgreements();
+
+            // Очистка всех заказов
+            clearBtn.addEventListener('click', function() {
+                if (confirm('Вы уверены, что хотите очистить все заказы?')) {
+                    localStorage.removeItem('tradeAgreements');
+                    loadAgreements();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
