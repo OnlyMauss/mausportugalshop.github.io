@@ -7,22 +7,23 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Firebase SDK -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // Замените на вашу конфигурацию Firebase
         const firebaseConfig = {
-            apiKey: "ВАШ_API_KEY",
-            authDomain: "ВАШ_PROJECT_ID.firebaseapp.com",
-            projectId: "ВАШ_PROJECT_ID",
-            storageBucket: "ВАШ_PROJECT_ID.appspot.com",
-            messagingSenderId: "ВАШ_SENDER_ID",
-            appId: "ВАШ_APP_ID"
+            apiKey: "AIzaSyC1lHkGwzcd9I6PSM-etMAJ-2PKjJV5RUU",
+            authDomain: "portugal-orders.firebaseapp.com",
+            databaseURL: "https://portugal-orders-default-rtdb.firebaseio.com",
+            projectId: "portugal-orders",
+            storageBucket: "portugal-orders.firebasestorage.app",
+            messagingSenderId: "180590865142",
+            appId: "1:180590865142:web:5d73557753e48cbfc99ad7",
+            measurementId: "G-PJ7LSTV5X6"
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
+        const analytics = getAnalytics(app);
         window.db = db;
     </script>
 </head>
